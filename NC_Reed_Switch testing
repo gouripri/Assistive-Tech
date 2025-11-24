@@ -1,4 +1,5 @@
-
+//Common, Blue wire goes to ground
+// NC, Black wire is reed
 const int REED_PIN = 2; 
 
 void setup() {
