@@ -1,0 +1,25 @@
+
+const int REED_PIN = 2; 
+
+void setup() {
+  Serial.begin(9600);
+  Serial.println("NC Reed Switch Ready.");
+  
+
+  pinMode(REED_PIN, INPUT_PULLUP);
+}
+
+void loop() {
+
+  int switchState = digitalRead(REED_PIN);
+
+  if (switchState == HIGH) {
+
+    Serial.println("open");
+  } else {
+
+    Serial.println("close");
+  }
+  
+  delay(500); 
+}
