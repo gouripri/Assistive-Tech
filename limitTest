@@ -1,0 +1,38 @@
+#include <Servo.h>
+
+Servo s;
+
+const int SERVO_PIN  = 9;
+const int LIMIT_PIN  = 2;
+
+int pos = 90;
+
+void setup() {
+  s.attach(SERVO_PIN);
+
+  pinMode(LIMIT_PIN, INPUT_PULLUP);   // switch between pin and GND
+
+  s.write(pos);
+  delay(300);
+}
+
+void loop() {
+  bool limitPressed = (digitalRead(LIMIT_PIN) == LOW);
+
+  if (!limitPressed) {
+    Serial.println("not pressed");
+    // Move toward the limit (change + to - if your direction is opposite)
+    pos += 1;
+    pos = constrain(pos, 0, 180);
+    s.write(pos);
+    delay(15);
+  } else {
+    Serial.println("pressed");
+    // Hit limit: back off a little, then stop
+    pos -= 10;
+    pos = constrain(pos, 0, 180);
+    s.write(pos);
+    while (true) { }  // stop here
+  }
+}
+
